@@ -3,12 +3,18 @@ import styled from "styled-components";
 
 import { fetchGraphQL } from "../lib/api";
 
+import ProjectsGallery from "../src/components/ProjectsGallery";
+import { ProjectProps } from "../src/components/ProjectImage/ProjectImage";
+
 interface IProps {
   data: {
     fullName: string;
     height: number;
     eyes: string;
     hair: string;
+    projectsCollection: {
+      items: ProjectProps[];
+    };
   };
 }
 
@@ -16,6 +22,9 @@ const Container = styled.div`
   h1 {
     color: ${({ theme }) => theme.colors.primary};
   }
+`;
+
+const InfoContainer = styled.section`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -29,21 +38,27 @@ const Info = styled.h4`
 `;
 
 const Home: NextPage<IProps> = ({ data }) => {
+  console.log({ data });
+
+  console.log(data.projectsCollection.items);
   return (
     <Container>
-      <h1>{data.fullName}</h1>
-      <Info>
-        <strong>Altezza: </strong>
-        {data.height}
-      </Info>
-      <Info>
-        <strong>Occhi: </strong>
-        {data.eyes}
-      </Info>
-      <Info>
-        <strong>Capelli: </strong>
-        {data.hair}
-      </Info>
+      <InfoContainer>
+        <h1>{data.fullName}</h1>
+        <Info>
+          <strong>Altezza: </strong>
+          {data.height}
+        </Info>
+        <Info>
+          <strong>Occhi: </strong>
+          {data.eyes}
+        </Info>
+        <Info>
+          <strong>Capelli: </strong>
+          {data.hair}
+        </Info>
+      </InfoContainer>
+      <ProjectsGallery projects={data.projectsCollection.items} />
     </Container>
   );
 };
@@ -53,18 +68,31 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   // Call an external API endpoint to get posts
   const resp = await fetchGraphQL(`query {
-    homeCollection(where: {sys: {id: "1OW8fKUdUdr1zOUsMpcKXm"}}) {
-      items {
-        fullName
-        height
-        eyes
-        hair
+    home(id: "1OW8fKUdUdr1zOUsMpcKXm") {
+      fullName
+      height
+      eyes
+      hair
+      projectsCollection {
+        items {
+          image {
+            title
+            url
+            width
+            height
+          }
+          credits {
+            title
+            author
+          }
+        }
       }
     }
-  }`);
+  }
+  `);
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
-  const data = resp.data.homeCollection.items[0];
+  const data = resp.data.home;
 
   return {
     props: {
