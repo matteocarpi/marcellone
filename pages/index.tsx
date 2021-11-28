@@ -37,6 +37,11 @@ const IntroImageContainer = styled.div`
   z-index: 0;
 `;
 
+const IntroContent = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
 const Home: NextPage<IProps> = ({ data }) => {
   console.log({ data });
   return (
@@ -49,6 +54,9 @@ const Home: NextPage<IProps> = ({ data }) => {
           objectFit="cover"
           objectPosition="center"
         />
+      <IntroContent>
+        <h1>{data.fullName}</h1>
+      </IntroContent>
       </IntroImageContainer>
     </Container>
   );
