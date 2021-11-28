@@ -1,20 +1,27 @@
 import type { NextPage, GetStaticProps } from "next";
+import Image from "next/image";
+
 import styled from "styled-components";
 
 import { fetchGraphQL } from "../lib/api";
 
-import ProjectsGallery from "../src/components/ProjectsGallery";
-import { ProjectProps } from "../src/components/ProjectImage/ProjectImage";
-
+interface Image {
+  url: string;
+  width: string;
+  height: string;
+  fileName: string;
+}
 interface IProps {
   data: {
     fullName: string;
-    height: number;
-    eyes: string;
-    hair: string;
-    projectsCollection: {
-      items: ProjectProps[];
+    showreel: string;
+    cv: {
+      url: string;
     };
+    mainImage: Image;
+    galleryCollecion: Image[];
+    info: string;
+    email: string;
   };
 }
 
@@ -24,41 +31,25 @@ const Container = styled.div`
   }
 `;
 
-const InfoContainer = styled.section`
+const IntroImageContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Info = styled.h4`
-  font-weight: 200;
+  z-index: 0;
 `;
 
 const Home: NextPage<IProps> = ({ data }) => {
   console.log({ data });
-
-  console.log(data.projectsCollection.items);
   return (
     <Container>
-      <InfoContainer>
-        <h1>{data.fullName}</h1>
-        <Info>
-          <strong>Altezza: </strong>
-          {data.height}
-        </Info>
-        <Info>
-          <strong>Occhi: </strong>
-          {data.eyes}
-        </Info>
-        <Info>
-          <strong>Capelli: </strong>
-          {data.hair}
-        </Info>
-      </InfoContainer>
-      <ProjectsGallery projects={data.projectsCollection.items} />
+      <IntroImageContainer>
+        <Image
+          src={data.mainImage.url}
+          layout="fill"
+          alt={data.mainImage.fileName}
+          objectFit="cover"
+          objectPosition="center"
+        />
+      </IntroImageContainer>
     </Container>
   );
 };
@@ -93,8 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   }
   `);
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+
   const data = resp.data.home;
 
   return {
