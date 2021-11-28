@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import { fetchGraphQL } from "../lib/api";
+import IntroContent from "../src/components/IntroContent";
 
 interface Image {
   url: string;
@@ -35,11 +36,7 @@ const IntroImageContainer = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 0;
-`;
-
-const IntroContent = styled.div`
-  position: relative;
-  z-index: 1;
+  overflow: hidden;
 `;
 
 const Home: NextPage<IProps> = ({ data }) => {
@@ -54,9 +51,11 @@ const Home: NextPage<IProps> = ({ data }) => {
           objectFit="cover"
           objectPosition="center"
         />
-      <IntroContent>
-        <h1>{data.fullName}</h1>
-      </IntroContent>
+        <IntroContent
+          fullName={data.fullName}
+          cv={data.cv.url}
+          showreel={data.showreel}
+        />
       </IntroImageContainer>
     </Container>
   );
