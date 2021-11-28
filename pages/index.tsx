@@ -70,23 +70,26 @@ export const getStaticProps: GetStaticProps = async () => {
   const resp = await fetchGraphQL(`query {
     home(id: "1OW8fKUdUdr1zOUsMpcKXm") {
       fullName
-      height
-      eyes
-      hair
-      projectsCollection {
+      showreel
+      cv {
+        url
+      }
+      mainImage {
+        url
+        width
+        height
+        fileName
+      }
+      galleryCollection {
         items {
-          image {
-            title
-            url
-            width
-            height
-          }
-          credits {
-            title
-            author
-          }
+          url
+          width
+          height
+          fileName
         }
       }
+      info
+      email
     }
   }
   `);
