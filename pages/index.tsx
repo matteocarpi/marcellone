@@ -4,14 +4,10 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import { fetchGraphQL } from "../lib/api";
+import Gallery from "../src/components/Gallery";
 import IntroContent from "../src/components/IntroContent";
+import { IImage } from "../src/types";
 
-interface Image {
-  url: string;
-  width: string;
-  height: string;
-  fileName: string;
-}
 interface IProps {
   data: {
     fullName: string;
@@ -19,8 +15,10 @@ interface IProps {
     cv: {
       url: string;
     };
-    mainImage: Image;
-    galleryCollecion: Image[];
+    mainImage: IImage;
+    galleryCollection: {
+      items: IImage[];
+    };
     info: string;
     email: string;
   };
@@ -57,6 +55,7 @@ const Home: NextPage<IProps> = ({ data }) => {
           showreel={data.showreel}
         />
       </IntroImageContainer>
+      <Gallery images={data.galleryCollection.items} />
     </Container>
   );
 };
