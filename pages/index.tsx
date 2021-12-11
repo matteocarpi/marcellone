@@ -1,4 +1,4 @@
-import type { NextPage, GetStaticProps } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Image from "next/image";
 
 import styled from "styled-components";
@@ -38,7 +38,6 @@ const IntroImageContainer = styled.div`
 `;
 
 const Home: NextPage<IProps> = ({ data }) => {
-  console.log({ data });
   return (
     <Container>
       <IntroImageContainer>
@@ -62,7 +61,7 @@ const Home: NextPage<IProps> = ({ data }) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   // Call an external API endpoint to get posts
   const resp = await fetchGraphQL(`query {
     home(id: "1OW8fKUdUdr1zOUsMpcKXm") {
