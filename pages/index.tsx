@@ -63,34 +63,40 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // Call an external API endpoint to get posts
-  const resp = await fetchGraphQL(`query {
-    home(id: "1OW8fKUdUdr1zOUsMpcKXm") {
-      fullName
-      showreel
-      cv {
-        url
-      }
-      mainImage {
-        url
-        width
-        height
-        fileName
-      }
-      galleryCollection {
-        items {
+  let data = {};
+
+  try {
+    const resp = await fetchGraphQL(`query {
+      home(id: "1OW8fKUdUdr1zOUsMpcKXm") {
+        fullName
+        showreel
+        cv {
+          url
+        }
+        mainImage {
           url
           width
           height
           fileName
         }
+        galleryCollection {
+          items {
+            url
+            width
+            height
+            fileName
+          }
+        }
+        info
+        email
       }
-      info
-      email
     }
+    `);
+    data = resp.data.home;
+  } catch (e) {
+    console.log("------ HOME SSR FAILED ----");
+    console.log(e);
   }
-  `);
-
-  const data = resp.data.home;
 
   return {
     props: {
