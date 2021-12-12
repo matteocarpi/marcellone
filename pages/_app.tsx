@@ -3,6 +3,10 @@ import Head from "next/head";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     color: #3B2929;
     margin: 0;

@@ -39,7 +39,7 @@ const Contacts: React.FunctionComponent<IProps> = ({
   cv,
 }) => {
   return (
-    <Container>
+    <Container id="contacts">
       <Name>{fullName}</Name>
       <Beauties>{info}</Beauties>
       <Email href={`mailto:${email}`}>{email}</Email>

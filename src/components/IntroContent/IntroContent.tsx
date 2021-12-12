@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import Button from "../Button";
 import CTAGroup from "../CTAGroup";
-
 interface IProps {
   fullName: string;
   cv: string;
   showreel: string;
 }
+const Wrapper = styled.div``;
 
 const Container = styled.div`
   margin-top: 40vh;
@@ -23,9 +22,15 @@ const Container = styled.div`
 const Name = styled.h1`
   color: ${({ theme }) => theme.colors.light};
 `;
-const Buttons = styled.div`
-  display: flex;
-  justify-content: space-between;
+
+const ContactsLink = styled.a`
+  position: absolute;
+  right: -25px;
+  bottom: 40px;
+  color: ${({ theme }) => theme.colors.light};
+  text-decoration: underline;
+  font-size: 20px;
+  transform: rotate(-90deg);
 `;
 
 const IntroContent: React.FunctionComponent<IProps> = ({
@@ -34,10 +39,15 @@ const IntroContent: React.FunctionComponent<IProps> = ({
   cv,
 }) => {
   return (
-    <Container>
-      <Name>{fullName}</Name>
-      <CTAGroup showreel={showreel} cv={cv} />
-    </Container>
+    <Wrapper>
+      <Container>
+        <Name>{fullName}</Name>
+        <CTAGroup showreel={showreel} cv={cv} />
+      </Container>
+      <ContactsLink data-scroll href="#contacts">
+        Contacts
+      </ContactsLink>
+    </Wrapper>
   );
 };
 
