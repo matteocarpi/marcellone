@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "../Button";
+import CTAGroup from "../CTAGroup";
 
 interface IProps {
   fullName: string;
@@ -19,6 +20,9 @@ const Container = styled.div`
   }
 `;
 
+const Name = styled.h1`
+  color: ${({ theme }) => theme.colors.light};
+`;
 const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
@@ -31,15 +35,8 @@ const IntroContent: React.FunctionComponent<IProps> = ({
 }) => {
   return (
     <Container>
-      <h1>{fullName}</h1>
-      <Buttons>
-        <Button variant="externalLink" href={showreel}>
-          Showreel
-        </Button>
-        <Button apparence="light" variant="externalLink" href={cv}>
-          Download CV
-        </Button>
-      </Buttons>
+      <Name>{fullName}</Name>
+      <CTAGroup showreel={showreel} cv={cv} />
     </Container>
   );
 };

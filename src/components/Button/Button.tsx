@@ -36,6 +36,19 @@ const buttonStyles = css<ButtonProps>`
       background-color: transparent;
       color: white;
     `}
+  ${({ apparence, theme }) =>
+    apparence === "lightRed" &&
+    css`
+      background-color: transparent;
+      color: ${theme.red};
+      border-color: ${theme.colors.red};
+    `}
+    ${({ apparence, theme }) =>
+    apparence === "red" &&
+    css`
+      background-color: ${theme.colors.red};
+      color: white;
+    `}
 `;
 
 const StyledButton = styled.button<

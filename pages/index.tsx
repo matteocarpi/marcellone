@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import { fetchGraphQL } from "../lib/api";
+import Contacts from "../src/components/Contacts";
 import Gallery from "../src/components/Gallery";
 import IntroContent from "../src/components/IntroContent";
 import { IImage } from "../src/types";
@@ -24,11 +25,7 @@ interface IProps {
   };
 }
 
-const Container = styled.div`
-  h1 {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
+const Container = styled.div``;
 
 const IntroImageContainer = styled.div`
   width: 100vw;
@@ -38,6 +35,8 @@ const IntroImageContainer = styled.div`
 `;
 
 const Home: NextPage<IProps> = ({ data }) => {
+  const { fullName, info, email } = data;
+
   return (
     <Container>
       <IntroImageContainer>
@@ -55,6 +54,13 @@ const Home: NextPage<IProps> = ({ data }) => {
         />
       </IntroImageContainer>
       <Gallery images={data.galleryCollection.items} />
+      <Contacts
+        fullName={fullName}
+        info={info}
+        email={email}
+        cv={data.cv.url}
+        showreel={data.showreel}
+      />
     </Container>
   );
 };

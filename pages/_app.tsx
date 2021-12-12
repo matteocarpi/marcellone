@@ -4,6 +4,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
+    color: #3B2929;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,12 +15,18 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     font-size: 54px;
   }
-
+  
+  a {
+    color: #3B2929;
+    text-decoration: none;
+  }
 `;
 
 const theme = {
   colors: {
-    primary: "#ffffff",
+    light: "#ffffff",
+    dark: "#3B2929",
+    red: "#903633",
   },
 };
 
