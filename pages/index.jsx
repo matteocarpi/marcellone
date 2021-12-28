@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { fetchGraphQL } from "../utils/api";
 import client from "../utils/client";
+import Image from "next/dist/client/image";
 
 import BirdOverlay from "../src/components/BirdOverlay";
 
@@ -23,26 +24,32 @@ const Container = styled.div`
 
 const Title = styled.h1``;
 
-export default function Home({ birds }) {
+export default function Home({ home }) {
+  console.log({ home });
+
   return (
     <Wrapper>
       <Container>
         <Title>Marcello Newman</Title>
-        <BirdOverlay birds={birds} />
+        <Image
+          src={`https://${home.fields.mainImage.fields.file.url}`}
+          alt=""
+          layout="fill"
+        />
       </Container>
     </Wrapper>
   );
 }
 
 export const getServerSideProps = async () => {
-  let birds = [];
+  let home;
 
   try {
     const birdResp = await client.getEntries({
-      content_type: "bird",
+      content_type: "home",
     });
 
-    birds = birdResp.items;
+    home = birdResp.items[0];
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log("------ HOME SSR FAILED ----");
@@ -53,7 +60,7 @@ export const getServerSideProps = async () => {
   return {
     props: {
       title: "Home",
-      birds,
+      home,
     },
   };
 };
