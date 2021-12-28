@@ -16,7 +16,7 @@ const Gallery: React.FunctionComponent<IProps> = ({ images }) => {
   return (
     <Container>
       {images.map((image) => (
-        <GalleryImage key={image.url} image={image} />
+        <GalleryImage key={image.url} image={image}/>
       ))}
     </Container>
   );
